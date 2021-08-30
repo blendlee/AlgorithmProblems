@@ -1,0 +1,44 @@
+
+
+
+#2진수 M이 2^K으로 나누어 떨어지는지 여부를 판별하는 프로그램을 작성하시오. 이 때, 나누어 떨어진다는 것은 나머지 없이 정수 몫으로 나누어진다는 것을 의미한다.
+
+n = int(input())
+m = str(input())
+k= int(input())
+
+#앞에 불필요한 0을 제거하기 위한 리스트 선언
+num=list(m)
+
+# 불필요한 0 이 제거된 리스트
+numbers=[]
+for i in range(len(num)) :
+    if num[i] == "0" :
+        continue
+    else :
+        numbers = num[i:]
+        break
+
+result=False
+
+#만약 m이 0이라면 결과는 언제나 참
+
+if len(numbers)==0:
+    result = True
+    
+else :
+
+#만약 m의 자릿수가 k 보다 커지면 거짓
+    if k < len(numbers):
+        result=True
+        
+        #k자릿수 이하에서 1이 존재한다면 나누어떨어지지않음
+        for i in range(k,0,-1):
+            if numbers[-i] == '1':
+                result=False
+                break
+
+if result == False :
+    print("NO")
+else:
+    print("YES")
