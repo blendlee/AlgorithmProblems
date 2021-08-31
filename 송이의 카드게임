@@ -1,0 +1,20 @@
+n,k=map(int,input().split())
+
+cards=[]
+graph=[]
+for i in range(n):
+    graph.append(list(map(int,input().split())))
+
+for i in range(n):
+    for j in range(k) :
+        cards.append([i+1,graph[i][j]])
+
+idx = 0
+while True:
+    target= cards[idx][1]
+    cards.remove(cards[idx])
+    idx = (target+idx-1)%len(cards)
+    if len(cards)== 1:
+        break
+
+print(cards[0][0] , cards[0][1])  
