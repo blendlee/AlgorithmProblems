@@ -1,0 +1,32 @@
+from collections import deque
+
+tickets=[["ICN", "SFO"], ["ICN", "ATL"], ["SFO", "ATL"], ["ATL", "ICN"], ["ATL","SFO"]]
+tickets1=[["ICN", "JFK"], ["HND", "IAD"], ["JFK", "HND"]]
+
+
+
+q=deque()
+travel=[]
+for ticket in tickets :
+    if ticket[0] == "ICN":
+        q.append(ticket)
+
+while q :
+
+    start,end = q.popleft()
+    count=0
+    for ticket in tickets:
+        if ticket[0] == end :    
+            if ticket not in travel :
+                travel.append(ticket)
+                q.append(ticket)
+                count+=1
+    if count >= 2 :
+        
+            
+        
+
+
+def solution(tickets):
+    answer = []
+    return answer
