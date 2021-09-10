@@ -1,0 +1,42 @@
+orders=["ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"]
+course=[2,3,4]
+
+
+
+
+def solution(orders, course):
+    menus = []
+    for i in range(len(orders)) :
+        for j in range(i+1,len(orders)):
+            count=0
+            result=''
+            for p in orders[i]:
+                for q in orders[j]:
+                    if p == q:
+                        count+=1
+                        result= result + p
+            result = ''.join(sorted(list(result)))
+            if count>=2 :
+                if result not in menus:
+                    menus.append((result))
+
+    answer=[]
+    for i in course:
+        for menu in menus :
+            if len(menu) == i :
+                count=0
+                
+                for p in menu :
+                    result=0
+                    for order in orders:
+                        for q in order :
+                            if p == q :
+                                count+=1
+                        if count == len(menu) :
+                            result +=1
+                    answer.append((i,result,menu))    
+    answer.sort(key = lambda x : (x[0], -x[1],x[2]))
+
+    return answer
+
+print(solution(orders,course))
