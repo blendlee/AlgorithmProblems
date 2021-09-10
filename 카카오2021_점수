@@ -1,0 +1,39 @@
+def solution(info, query):
+    result=[]
+    answer=[[] for _ in range(len(info))]
+    for i in range(len(info)) :
+        l=-1
+        for j in range(len(info[i])) :
+            if info[i][j] == ' ' :
+                answer[i].append(info[i][l+1:j])
+                l=j
+        answer[i].append(int(info[i][l:j+1]))
+
+
+    question=[[] for _ in range(len(query))]
+    for i in range(len(query)) :
+        l=-1
+        for j in range(len(query[i])) :
+            if query[i][j] == ' ' :
+                if query[i][l+1:j] != "and" and query[i][l+1:j] != '-' :
+                    question[i].append(query[i][l+1:j])
+                l=j
+        question[i].append(int(query[i][l:j+1]))
+    
+    
+    sol=[]
+    for i in range(len(question)) :
+        result=0
+        for j in range(len(answer)) :
+            count=0
+            for x in range(len(question[i])-1):
+                if question[i][x] in answer[j]:
+                    count+=1
+            if count == len(question[i])-1:
+                if question[i][-1] <= answer[j][-1] :
+                    result+=1
+        sol.append(result)
+
+    return sol
+
+print(solution(info,query))
