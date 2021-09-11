@@ -1,0 +1,44 @@
+import math
+
+
+
+def isprime(x):
+    if x==1 :
+        return False
+    if x== 1111111111111:
+        return False
+    for i in range(2,int(math.sqrt(x))):
+        if x%i == 0 :
+            return False
+    return True
+
+def solution(n, k):
+    a=[]
+    answer=0
+    while True:
+        if n == 0 :
+            break
+        a.append(str(n%k))
+        n=n//k
+    prime=[]
+    a.reverse()
+    l=-1
+    for i in range(len(a)):
+        if a[i] == '0' :
+            prime.append(''.join(a[l+1:i]))
+            l=i
+    prime.append(''.join(a[l+1:i+1]))
+
+    for i in prime:
+        if i == '' :
+            prime.remove(i)
+
+    for i in range(len(prime)):
+        if prime[i]== '' :
+            continue
+        if isprime(int(prime[i])) == True :
+            answer +=1
+    return answer 
+
+
+print(solution(n,k))
