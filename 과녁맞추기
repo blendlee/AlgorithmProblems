@@ -1,0 +1,76 @@
+import copy
+import sys
+sys.setrecursionlimit(2500)
+
+
+
+n=10
+info=[0, 0, 0, 0, 0, 0, 0, 0, 3, 4, 3]
+lion=[0]*len(info)
+
+count=0
+maximum=0
+answer=[]
+
+result=[]
+
+def find(n,info,lion):
+    global count
+    global maximum
+    global answer
+
+
+
+    if count == n :
+        maximum=max(score(info,lion),maximum)
+        if maximum == score(info,lion) :
+            answer =copy.deepcopy(lion)
+        return
+
+    for i in range(len(info)):
+
+        if lion[i] > info[i] :
+            continue
+        elif lion[i] == 1 :
+            continue
+        if n-count > info[i]:
+            lion[i] += info[i]+1
+            count += info[i]+1
+            find(n,info,lion)
+            lion[i] -= (info[i]+1)
+            count -= (info[i]+1)
+        else :
+
+            lion[i] += 1
+            count+= + 1
+            find(n,info,lion)
+            count-=  1
+            lion[i] -= 1
+            continue    
+    return answer
+
+
+
+def score(info,lion):
+    lion_score=0
+    appeach_score=0
+    for i in range(len(info)):
+        if lion[i] == info[i] and info[i]==0 :
+            continue
+        if lion[i] > info[i]:
+            lion_score += (10-i)
+        else:
+            appeach_score += (10-i)
+
+    return lion_score - appeach_score
+
+
+
+
+def solution(n, info):
+    lion=[0]*len(info)
+    result = find(n,info,lion)
+    
+    if len(result) == 0 :
+        return [-1]
+    return result
