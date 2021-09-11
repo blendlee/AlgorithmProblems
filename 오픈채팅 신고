@@ -1,0 +1,23 @@
+def solution(id_list, report, k):
+    report = list(set(report))
+    result=[0]*(len(id_list))
+    answer=[0]*(len(id_list))
+    reports=[]
+    for i in range(len(report)):
+        for j in range(len(report[i])):
+            if report[i][j] == ' ':
+                reports.append((report[i][:j],report[i][j+1:]))
+    for x,y in reports :
+        result[id_list.index(y)] += 1
+
+    indexes=[]
+    for i in range(len(result)):
+        if result[i] >= k :
+            indexes.append(i)
+
+    for i in indexes:
+        for x,y in reports:
+            if y == id_list[i] :
+                answer[id_list.index(x)] += 1
+
+    return answer
