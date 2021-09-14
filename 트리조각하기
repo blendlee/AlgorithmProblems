@@ -1,0 +1,35 @@
+for i in range(n-1):
+    a, b = map(int,input().split())
+    graph[a].append(b)
+    graph[b].append(a)
+
+
+tree=[]
+for i in range(n):
+    if c[i] == 1 :
+        tree.append(i+1)
+
+def dijkstra(start):
+    distance=[INF]*(n+1)
+    distance[start] = 0
+    q=[]
+    heapq.heappush(q,(0,start))
+
+    while q :
+        dist, now = heapq.heappop(q)
+        if dist > distance[now]:
+            continue
+        for i in graph[now]:
+            if c[i-1] == 0 :
+                return dist
+            cost = 1+ dist
+            if cost < distance[i]:
+                distance[i] = cost
+                heapq.heappush(q,(cost,i))
+    return dist
+
+maximum=0
+for i in range(len(tree)):
+    maximum= max(dijkstra(tree[i])+1,maximum)
+
+print(maximum)
