@@ -1,0 +1,18 @@
+def solution(n, left, right):
+    arr=[]
+    y = left%n
+    x = left//n 
+
+    ry = right%n
+    rx= right//n 
+
+
+    while True :
+        if (x,y) == (rx,ry):
+            arr.append(max(x,y)+1)
+            return arr
+        arr.append(max(x,y)+1)
+        y+=1
+        if y == n :
+            y=0
+            x+=1
