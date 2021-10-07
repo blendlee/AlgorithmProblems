@@ -1,0 +1,58 @@
+import heapq
+
+n=2
+m=5
+x=0
+y=1
+
+queries =[[3,1],[2,2],[1,1],[2,3],[0,1],[2,1]]
+queries = list(reversed(queries))
+
+q=[]
+heapq.heappush(q,(0,x,y))
+
+dx=[0,0,1,-1]
+dy=[1,-1,0,0]
+
+
+while True :
+    if len(q)== 0:
+        answer=0
+        break
+    i,x,y= heapq.heappop(q)
+    if i >= len(queries):
+        heapq.heappush(q,(i,x,y))
+        answer = len(q)
+        break
+    a, b = queries[i]
+
+    nx= x+ dx[a]*b
+    ny= y+ dy[a]*b
+        
+    if x== 0 and a== 2 :
+        for j in range(b):
+            kx= x+ dx[a]*j
+            ky= y+ dy[a]*j
+            if 0 <= kx < n and 0<= ky < m :
+                heapq.heappush(q,(i+1,kx,ky))
+    if x ==n -1 and a == 3 :
+        for j in range(b):
+            kx= x+ dx[a]*j
+            ky= y+ dy[a]*j
+            if 0 <= kx < n and 0<= ky < m :
+                heapq.heappush(q,(i+1,kx,ky))
+    if y == 0 and a == 0:
+        for j in range(b):
+            kx= x+ dx[a]*j
+            ky= y+ dy[a]*j
+            if 0 <= kx < n and 0<= ky < m :
+                 heapq.heappush(q,(i+1,kx,ky))
+    if y == m-1 and a == 1 :
+        for j in range(b):
+            kx= x+ dx[a]*j
+            ky= y+ dy[a]*j
+            if 0 <= kx < n and 0<= ky < m :
+                heapq.heappush(q,(i+1,kx,ky))
+
+    if 0 <= nx < n and 0<= ny < m :
+        heapq.heappush(q,(i+1,nx,ny))
