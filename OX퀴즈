@@ -1,0 +1,21 @@
+n = int(input())
+answer=[]
+for i in range(n):
+    a=str(input())
+    if a[0] == 'O':
+        count=1
+        score=1
+    else:
+        count=1
+        score=0
+    for i in range(1,len(a)):
+        if a[i] == 'O':
+            if a[i-1] == 'O':
+                count+=1
+            score+=count
+        else:
+            count=1
+    answer.append(score)
+
+for i in answer:
+    print(i)
