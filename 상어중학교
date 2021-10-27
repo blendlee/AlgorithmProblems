@@ -1,0 +1,147 @@
+
+
+n, m= map(int,input().split())
+graph=[]
+for i in range(n):
+    graph.append(list(map(int,input().split())))
+
+
+
+dx=[1,0,-1,0]
+dy=[0,1,0,-1]
+
+answer=0
+count=0
+rainbow=0
+def dfs(graph,visited,x,y,k):
+    global count
+    global rainbow
+    for i in range(4):
+        nx=x+dx[i]
+        ny=y+dy[i]
+        if 0<=nx<n and 0<=ny<n :
+            if visited[nx][ny] == False:
+                if graph[nx][ny] == k or graph[nx][ny] == 0 :
+                    visited[nx][ny]= True
+                    count+=1
+                    if graph[nx][ny]==0:
+                        rainbow+=1
+                    dfs(graph,visited,nx,ny,k)
+
+
+
+def compare(i,j,coord,color,rainbow,rblocks):
+    if rblocks >rainbow:
+        return coord,color,rblocks
+    elif rblocks == rainbow:
+        if coord[0]>i:
+            return coord,color,rblocks
+
+        elif coord[0] == i :
+            if coord[1]>j:
+                return coord,color,rblocks
+            else :
+                coord=(i,j)
+                color=graph[i][j]
+                rblocks=rainbow
+                return coord,color,rblocks                        
+        else:
+            coord=(i,j)
+            color=graph[i][j]
+            rblocks=rainbow
+            return coord,color,rblocks
+    else:
+        coord=(i,j)
+        color=graph[i][j]
+        rblocks=rainbow
+        return coord,color,rblocks
+
+
+def delete(graph,visited,x,y,k):
+    for i in range(4):
+        nx=x+dx[i]
+        ny=y+dy[i]
+        if 0<=nx<n and 0<=ny<n :
+            if visited[nx][ny] == False:
+                if graph[nx][ny] == k or graph[nx][ny] == 0 :
+                    visited[nx][ny] = True
+                    graph[nx][ny] = -2
+                    delete(graph,visited,nx,ny,k)   
+
+
+def gravity(graph):
+    for i in range(n-1,-1,-1):
+        for j in range(n-1,-1,-1):
+            if graph[i][j] != -1 and graph[i][j] != -2:
+                for k in range(i+1,n):
+                    if graph[k][j] == -2 :
+                        graph[k][j], graph[k-1][j] = graph[k-1][j], graph[k][j]
+                    else:
+                        break
+
+def turn(graph):
+    new_graph=[[0]*n for _ in range(n)]
+    for i in range(n):
+        for j in range(n):
+            new_graph[n-1-j][i] = graph[i][j]
+    return new_graph
+
+def make_zero(graph,visited):
+    for i in range(n):
+        for j in range(n):
+            if graph[i][j] == 0:
+                visited[i][j] = False
+
+def check(graph):
+    for i in range(n):
+        for j in range(n):
+            if graph[i][j] != -2:
+                return True
+    return False
+
+while check(graph):
+    result=0
+    color=-2
+    coord=(-1,-1)
+    rblocks=0
+    visited=[[False]*n for _ in range(n)]
+    for i in range(n):
+        for j in range(n):
+            make_zero(graph,visited)
+            count=1
+            rainbow=0
+            if graph[i][j] != -1 and graph[i][j] !=0 and graph[i][j] !=-2:
+                if visited[i][j] == False :               
+                    visited[i][j]=True
+                    dfs(graph,visited,i,j,graph[i][j])
+
+                    if result == count:
+                        coord,color,rblocks = compare(i,j,coord,color,rainbow,rblocks)
+                        continue
+
+                            
+                    if result < count:
+                        color=graph[i][j]
+                        coord=(i,j)
+                        rblocks=rainbow
+                        result=count
+
+        
+
+               
+    if result <= 1 :
+        break
+    
+    answer+=result**2
+    x,y= coord
+    visited=[[False]*n for _ in range(n)]
+    visited[x][y]=True
+    graph[x][y] =-2
+    delete(graph,visited,x,y,color)
+    gravity(graph)
+    graph=turn(graph)
+    gravity(graph)
+    
+
+
+print(answer)
