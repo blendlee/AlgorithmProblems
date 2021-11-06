@@ -1,0 +1,24 @@
+
+k= int(input())
+
+inorder=list(map(int,input().split()))
+
+building=[[] for _ in range(k)]
+
+
+def bin_tree(array,stairs):
+    left = array[:len(array)//2]
+    right = array[len(array)//2 +1:]
+    mid = array[len(array)//2]
+    building[stairs].append(mid)
+    if len(array) ==1 :
+        return
+    bin_tree(left,stairs+1)
+    bin_tree(right,stairs+1)
+
+    
+bin_tree(inorder,0)
+for i in building:
+    for j in i :
+        print(j,end=' ')
+    print()
