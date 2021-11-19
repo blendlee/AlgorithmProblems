@@ -1,0 +1,16 @@
+from itertools import combinations
+
+
+n=[]
+for i in range(9):
+    n.append(int(input()))
+
+
+c=list(combinations(n,7))
+for i in c:
+    if sum(i) == 100:
+        answer=list(i)
+        break
+answer.sort()
+for i in answer:
+    print(i)
