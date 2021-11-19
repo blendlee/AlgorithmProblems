@@ -1,0 +1,21 @@
+
+n=int(input())
+
+
+for i in range(1,n):
+    answer=i
+    result=i
+    while True:
+        k=i%10
+        if i//10 == 0 :
+            answer+=k
+            break
+        answer+=k
+        i//=10
+    if answer == n :
+        break
+    if result ==n-1:
+        result=0
+if n==1:
+    result =0
+print(result)
