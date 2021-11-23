@@ -1,0 +1,30 @@
+
+
+n,m=map(int,input().split())
+chess=[]
+line1=["B","W","B",'W','B','W','B','W']
+line2=['W',"B","W","B",'W','B','W','B']
+
+chess1=[line1,line2,line1,line2,line1,line2,line1,line2]
+chess2=[line2,line1,line2,line1,line2,line1,line2,line1]
+
+
+for i in range(n):
+    chess.append(list(str(input())))
+
+
+array=[]
+minimum=100000
+for i in range(n-7):
+    for j in range(m-7):
+        wrong1=0
+        wrong2=0
+        for a in range(i,i+8):
+            for b in range(j,j+8):
+                if chess[a][b] != chess1[a-i][b-j]:
+                    wrong1+=1
+                if chess[a][b] != chess2[a-i][b-j]:
+                    wrong2+=1   
+        minimum=min(wrong1,wrong2,minimum)
+
+print(minimum)
