@@ -1,0 +1,25 @@
+
+from itertools import combinations_with_replacement
+
+
+def dp(n):
+    d=[1]
+    k=0
+    while True:
+        if d[k]+k+2 > n :
+            break
+        d.append(d[k]+k+2)
+        k+=1
+    return d
+
+
+t=int(input())
+for i in range(t):
+    n=int(input())
+    c= list(combinations_with_replacement(dp(n),3))
+    answer=0
+    for x,y,z in c :
+        if x+y+z == n :
+            answer=1
+            break
+    print(answer)
