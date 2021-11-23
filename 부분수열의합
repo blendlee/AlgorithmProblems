@@ -1,0 +1,25 @@
+from itertools import combinations
+
+
+n,s=map(int,input().split())
+numbers=list(map(int,input().split()))
+
+
+count=0
+comb = []
+
+for i in numbers:
+    if i == s :
+        count+=1
+
+for i in range(2,n+1):
+    comb.append(list(combinations(range(n),i)))
+
+for clist in comb:
+    for c in clist:
+        answer=0
+        for a in c:
+            answer+=numbers[a]
+        if answer==s:
+            count+=1
+print(count)
