@@ -1,0 +1,43 @@
+from itertools import permutations
+
+n= int(input())
+
+numbers=[1,2,3,4,5,6,7,8,9]
+
+numbers=list(permutations(numbers,3))
+
+for i in range(n):
+    result=[]
+    a, s, b = map(int,input().split())
+
+
+    p=a//100
+    q=(a//10) % 10
+    r=a%10
+    k=[p,q,r]
+
+    count=0
+    for nums in numbers:
+        if p in nums:
+            count+=1
+        if q in nums:
+            count+=1
+        if r in nums:
+            count+=1
+
+        if count == s+b:
+            result.append(nums)
+        count=0
+    numbers=result
+    count=0
+    result=[]
+    for nums in numbers:
+        for j in range(3):
+            if k[j] == nums[j]:
+                count+=1
+        if count == s:
+            result.append(nums)
+        count=0
+    numbers=result
+
+print(len(numbers))
