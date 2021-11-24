@@ -1,0 +1,20 @@
+
+
+
+result=[]
+while True:
+    p, l ,v =map(int,input().split())
+    if p==0 and v==0 and l==0 :
+        break
+    answer= v//l *p
+    if v%l >=p :
+        answer+=p
+    else:
+        answer+= v%l
+
+    result.append(answer)
+    answer=0
+
+
+for i in range(len(result)):
+    print("Case {0}: {1}".format(i+1,result[i]))
