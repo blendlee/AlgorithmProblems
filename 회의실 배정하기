@@ -1,0 +1,18 @@
+
+n=int(input())
+
+graph=[]
+for i in range(n):
+    start,end=map(int,input().split())
+    graph.append((start,end))
+
+graph.sort(key=lambda x : (x[1],x[0]))
+
+end=graph[0][1]
+count=1
+graph=graph[1:]
+for x,y in graph:
+    if end <=x:
+        count+=1
+        end=y
+print(count)
