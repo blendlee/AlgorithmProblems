@@ -1,0 +1,36 @@
+import sys
+import heapq
+
+input=sys.stdin.readline
+
+n=int(input())
+
+graph=[]
+
+for i in range(n):
+    s,t = map(int,input().split())
+    graph.append((s,t))
+
+
+
+
+graph.sort(key=lambda x : (x[0],x[1]))
+
+answer=[]
+heapq.heappush(answer,(graph[0][1],graph[0][0]))
+graph=graph[1:]
+count=1
+
+
+for x,y in graph:
+    end,start = answer[0]
+    if end > x :
+        count+=1
+        heapq.heappush(answer,(y,x))
+
+    else:
+        heapq.heappop(answer)
+        heapq.heappush(answer,(y,x))
+
+
+print(count)
