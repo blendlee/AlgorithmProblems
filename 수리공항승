@@ -1,0 +1,27 @@
+
+
+n,l = map(int,input().split())
+pipe=list(map(int,input().split()))
+
+
+pipe.sort()
+count=0
+while True:
+    
+    if len(pipe)==0:
+        break
+    count+=1
+    start=pipe[0]
+    c=0
+    for i in range(len(pipe)):
+        if start<=pipe[i]< start+l:
+            c+=1
+            continue
+        else:
+            start=i
+            break
+    if c == len(pipe):
+        break
+    pipe=pipe[start:]
+
+print(count)
