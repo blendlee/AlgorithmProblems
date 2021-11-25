@@ -1,0 +1,14 @@
+n= int(input())
+rope=[]
+for i in range(n):
+    rope.append(int(input()))
+
+rope.sort()
+rope.reverse()
+
+w=[0]*(n)
+
+for i in range(n):
+    w[i]=rope[i]*(i+1)
+
+print(max(w))
