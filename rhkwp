@@ -1,0 +1,27 @@
+
+n=int(input())
+graph=[]
+maximum=0
+for i in range(n):
+    d,w=map(int,input().split())
+    graph.append((d,w))
+    maximum=max(d,maximum)
+
+grade=[0]*(maximum+1)
+graph.sort(key=lambda x : (-x[1], -x[0]))
+
+end=False
+for i in range(n):
+    d=graph[i][0]
+    w=graph[i][1]
+
+
+    while grade[d] >=w :
+        if d==0 :
+            end=True
+            break
+        d=d-1
+    if grade[d] <=w:
+        grade[d]=w
+
+print(sum(grade[1:]))
