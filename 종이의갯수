@@ -1,0 +1,33 @@
+
+n=int(input())
+graph=[]
+for i in range(n):
+    graph.append(list(map(int,input().split())))
+
+
+result=[0,0,0]
+
+def find(x,y,k):
+    if k==0:
+        return
+    answer=0
+    zero=True
+    for i in range(k):
+        answer+=sum(graph[x+i][y:y+k])
+        for j in range(k):
+            if graph[x+i][y+j] != 0 :
+                zero =False
+    if answer ==-k*k :
+        result[0]+=1
+    elif answer == 0 and zero == True:
+        result[1]+=1
+    elif answer ==k*k:
+        result[2]+=1
+    else:
+        for p in range(x,x+k,k//3):
+            for q in range(y,y+k,k//3):
+                find(p,q,k//3)
+
+find(0,0,n)
+for i in range(3):
+    print(result[i])
