@@ -1,0 +1,35 @@
+n= int(input())
+graph=[]
+for i in range (n):
+    graph.append(list(str(input())))
+      
+k=n
+answer=[]
+def find(x,y,k):
+    if k==0:
+        return
+    result=0
+    for i in range(x,x+k):
+        for j in range(y,y+k):
+            result+=int(graph[i][j])
+    if result == k*k:
+        answer.append('1')
+    elif result==0:
+        answer.append('0')
+    else:
+        answer.append('(')
+        m=k//2
+        find(x,y,k//2)
+        find(x,y+m,m)
+      
+        find(x+m,y,m)
+         
+        
+        
+        find(x+m,y+m,m)
+        answer.append(')')
+         
+         
+find(0,0,n)
+answer=''.join(answer)
+print(answer
