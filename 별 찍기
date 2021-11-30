@@ -1,0 +1,41 @@
+
+n =int(input())
+pic=[['*']*n for _ in range(n)]
+
+def erase(x,y,n):
+    
+    if n==1:
+        return
+    
+    k=n//3
+    
+    for i in range(x+k,x+2*k):
+        for j in range(y+k,y+2*k):
+            pic[i][j]=' '
+            
+            
+    
+    erase(x,y,k)
+    erase(x+k,y,k)
+    erase(x+2*k,y,k)
+    
+    
+    erase(x,y+k,k)
+    
+    erase(x+2*k,y+k,k)
+    
+    
+    erase(x,y+2*k,k)
+    erase(x+k,y+2*k,k)
+    erase(x+2*k,y+2*k,k)
+    
+
+
+erase(0,0,n)
+answer=[]
+for i in range(n):
+    a=''.join(pic[i])
+    answer.append(a)
+
+for i in range(n):
+    print(answer[i])
