@@ -1,0 +1,23 @@
+n,k=map(int,input().split())
+INF=1e9
+coins=[]
+d=[INF]*10001
+for i in range(n):
+    c=int(input())
+    coins.append(c)
+    if c <=10000:
+        d[c]=1
+
+coins.sort()
+
+
+for i in range(coins[0],10001):
+    for c in coins:
+        if i+c <=10000:
+            d[i+c]=min(d[i]+1,d[i+c])
+
+for i in range(len(d)):
+    if d[i]==INF:
+        d[i]=-1
+
+print(d[k])
