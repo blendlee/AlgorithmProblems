@@ -1,0 +1,22 @@
+n=int(input())
+INF=1e9
+d=[INF]*100001
+
+d[1]=1
+d[2]=2
+d[3]=3
+
+
+for i in range(2,100001):
+
+    if i**2 <= 100000:
+        d[i**2]=1
+
+    k=100001
+    for j in range(i//2):
+        k=min(d[i-j-1]+d[j+1],k)
+
+
+    d[i]=min(k,d[i])
+
+print(d)
