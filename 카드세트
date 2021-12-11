@@ -1,0 +1,42 @@
+
+
+s=str(input())
+cards=[]
+while len(s) != 0 :
+    cards.append(s[:3])
+    s=s[3:]
+
+
+p=[]
+k=[]
+h=[]
+t=[]
+
+answer=0
+
+for i in range(len(cards)):
+    if cards[i][0]=='P':
+        if cards[i] in p :
+            answer='GRESKA'
+            continue
+        p.append(cards[i])
+    elif cards[i][0]=='K':
+        if cards[i] in k :
+            answer='GRESKA'
+            continue
+        k.append(cards[i])
+    elif cards[i][0]=='H':
+        if cards[i] in h :
+            answer='GRESKA'
+            continue
+        h.append(cards[i])
+    elif cards[i][0]=='T':
+        if cards[i] in t :
+            answer='GRESKA'
+            continue
+        t.append(cards[i])
+
+if answer !=0 :
+    print (answer)
+else:
+    print(13-len(p),13-len(k),13-len(h),13-len(t))
