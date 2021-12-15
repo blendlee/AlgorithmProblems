@@ -1,0 +1,28 @@
+
+
+t= int(input())
+
+for k in range(t):
+    n=int(input())
+    prices=list(map(int,input().split()))
+
+
+
+    answer=0
+    price=prices[-1]
+    count=0
+    
+    s=0
+    for i in range(n-2,-1,-1):
+        
+        if prices[i] < price :
+            s+= prices[i]
+            
+            answer += price-prices[i]
+
+        else:
+            
+            s=0
+            price=prices[i]
+
+    print(answer)
