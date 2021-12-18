@@ -1,0 +1,26 @@
+n,m = map(int,input().split())
+
+trees=list(map(int,input().split()))
+trees.sort()
+
+def bin_search(target,start,end):
+    mid=(start+end)//2
+    result=0
+    result2=0
+    for tree in trees:
+        if tree > mid :
+            result += (tree-mid)
+        if tree > mid+1 :
+            result2 += (tree-mid-1)
+    
+    if target < result:
+        if target > result2:
+            return mid
+        else:
+            return bin_search(target,mid+1,end)
+    elif target > result:
+        return bin_search(target,start,mid-1)
+    else:
+        return mid
+
+print(bin_search(m,1,max(trees)))
