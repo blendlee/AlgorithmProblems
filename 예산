@@ -1,0 +1,34 @@
+n=int(input())
+req=list(map(int,input().split()))
+m=int(input())
+
+
+def bin_search(target,start,end):
+    mid=(start+end)//2
+    result=0
+    result2=0
+    for a in req:
+        if a <= mid :
+            result+=a
+        else :
+            result+=mid
+        if a <= mid+1:
+            result2+=a
+        else :
+            result2+=(mid+1)
+    
+    if result == target:
+        return mid
+    elif result > target:
+        return bin_search(target,start,mid-1)
+    elif result < target:
+        if target < result2:
+            return mid
+        else:
+            return bin_search(target,mid+1,end)
+
+
+if sum(req) <= m:
+    print(max(req))
+else:
+    print(bin_search(m,0,m))
