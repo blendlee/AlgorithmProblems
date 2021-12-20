@@ -1,0 +1,44 @@
+
+import sys
+sys.setrecursionlimit(2500)
+
+n,m = map(int,input().split())
+
+lectures=list(map(int,input().split()))
+
+
+def bin_search(start,end):
+    if start>end:
+        return end
+    mid=(start+end)//2
+    count=0
+    answer=0
+    s=0
+    for i in range(n):
+        s+=lectures[i]
+        if s > mid :
+            count+=1
+            s-=lectures[i]
+            answer=max(answer,s)
+            s=lectures[i]
+    answer=max(answer,s)
+    if count+1 == m :
+        count=0
+        s=0
+        for i in range(n):
+            s+=lectures[i]
+            if s > mid-1 :
+                count+=1
+                s-=lectures[i]
+                s=lectures[i]
+        if count +1 == m :
+            return bin_search(start,mid-1)
+        else:    
+            return answer
+    elif count+1 > m :
+        return bin_search(mid+1,end)
+    else:
+        return bin_search(start,mid-1)
+
+
+print(bin_search(1,sum(lectures)))
