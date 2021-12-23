@@ -1,0 +1,39 @@
+
+n,p=map(int,input().split())
+rooms=[]
+for i in range(n):
+    t,a,h = map(int,input().split())
+    rooms.append((t,a,h))
+
+start=1
+end=int(1e18)
+answer=0
+
+while start<=end:
+    H_atk=p
+    mid=(start+end)//2
+    h_curr = mid
+    hero_die=False
+    for t,a,h in rooms:
+        monster_die=False
+        if t==1 :
+            if h%H_atk == 0 :
+                attacked=h//H_atk
+            else:
+                attacked=h//H_atk+1
+            h_curr-=a*(attacked-1)
+            if h_curr<=0:
+                hero_die=True
+                break
+        elif t==2:
+            H_atk+=a
+            h_curr+=h
+            if h_curr> mid:
+                h_curr=mid
+    if hero_die:
+        start=mid+1
+    else:
+        end=mid-1
+        answer=mid
+
+print(answer)
