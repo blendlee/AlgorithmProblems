@@ -1,0 +1,29 @@
+n=int(input())
+k=int(input())
+
+
+start=1
+end=n**2
+pattern=[]
+for i in range(1,n+1):
+    pattern.append((i,n*i))
+
+
+
+while start<=end:
+    mid=(start+end)//2
+    answer=0
+    for a,b in pattern:
+        if a<= mid and mid <=b:
+            answer+=(mid-a)//a+1
+        elif a<=mid and mid >b:
+            answer+=(b-a)//a+1
+    if answer >=k :
+        end=mid-1
+        result=mid
+    else:
+        start=mid+1
+if n==1:
+    result=1
+
+print(result)
