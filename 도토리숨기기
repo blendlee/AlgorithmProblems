@@ -1,0 +1,31 @@
+import sys
+
+input=sys.stdin.readline
+
+
+
+n,k,d= map(int,input().split())
+rules=[]
+for i in range(k):
+    a,b,c = map(int,input().split())
+    rules.append((a,b,c))
+
+start=1
+end=n
+result=0
+while start<=end:
+    mid=(start+end)//2
+    answer=0
+    for a,b,c in rules:
+        if a <= mid and mid <= b :
+            answer+=(mid-a)//c+1
+        elif a <= mid and mid > b :
+            answer+= (b-a)//c +1
+    if answer >= d:
+        end = mid-1
+        result=mid
+    else:
+        start=mid+1
+        
+
+print(result)
