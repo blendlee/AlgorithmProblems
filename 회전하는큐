@@ -1,0 +1,18 @@
+
+n,m=map(int,input().split())
+q=list(range(1,n+1))
+targets=list(map(int,input().split()))
+
+answer=0
+curr=0
+for i in range(m):
+    target=q.index(targets[i])
+
+    answer+=min(abs(target-curr),n-abs(target-curr))
+
+    curr=target
+    q.remove(targets[i])
+    n-=1
+
+print(answer)
+
