@@ -1,0 +1,21 @@
+
+n,k=map(int,input().split())
+
+
+q=list(range(1,n+1))
+size=n
+answer=[]
+d=0
+while q :
+    d=(d+k-1)%size
+    answer.append(q[d])
+    q.remove(q[d])
+    size-=1
+
+for i in range(n):
+    if i==0:
+        print('<',end='')
+    if i <n-1:
+        print('{}, '.format(answer[i]),end='')
+    else:
+        print('{}>'.format(answer[i]))
