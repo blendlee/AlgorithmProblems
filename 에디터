@@ -1,0 +1,42 @@
+
+import sys
+from collections import deque
+
+inputs=sys.stdin.readline
+
+s=str(input())
+
+n=int(input())
+com=[]
+
+st1=deque()
+for i in s :
+    st1.append(i)
+
+st2=deque()
+
+
+for i in range(n):
+    a=str(inputs())
+    a=a[:-1]
+    com.append(a.split(' '))
+
+
+for i in range(n):
+    if len(com[i])==1:
+        if com[i][0] == 'L':
+            if len(st1)==0:
+                continue
+            st2.appendleft(st1.pop())
+        if com[i][0] == 'D':
+            if len(st2)==0:
+                continue
+            st1.append(st2.popleft())
+        if com[i][0] == 'B':
+            if len(st1)==0:
+                continue
+            st1.pop()
+    else:
+        st1.append(com[i][1])
+
+print(''.join(list(st1))+''.join(list(st2)))
