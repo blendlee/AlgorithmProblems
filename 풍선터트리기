@@ -1,0 +1,35 @@
+
+n=int(input())
+numbers=list(map(int,input().split()))
+
+baloons=list(range(1,n+1))
+
+now=0
+next=0
+answer=[]
+
+while numbers:
+    if numbers[now] >0:
+        if len(numbers)==1:
+            answer.append(baloons.pop(0))
+            numbers.pop(0)
+        else:
+            next= (now + numbers[now]-1)%(len(numbers)-1)
+            answer.append(baloons.pop(now))
+            numbers.pop(now)
+            now=next
+    else:
+        if len(numbers)==1:
+            answer.append(baloons.pop(0))
+            numbers.pop(0)         
+        else:
+            next=(now + numbers[now])
+            while next <0 :
+                next+=(len(numbers)-1)
+            next=next%(len(numbers)-1)
+            answer.append(baloons.pop(now))
+            numbers.pop(now)
+            now=next
+
+for i in answer:
+    print(i,end=' ')
