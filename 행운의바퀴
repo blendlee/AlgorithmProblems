@@ -1,0 +1,31 @@
+
+
+n,k = map(int,input().split())
+roll=[]
+for i in range(k):
+    s,z= map(str,input().split())
+    roll.append((int(s),z))
+
+
+roll.reverse()
+
+now=0
+answer=['?']*n
+result=True
+
+for s , z in roll :
+    if answer[now] != z and answer[now] != '?':
+        result=False
+        break
+    if z in answer and answer[now] != z:
+        result=False
+        break
+    answer[now] = z
+    now+=s
+    now%=n
+
+if result:
+    for i in answer:
+        print(i,end='')
+else:
+    print('!')
