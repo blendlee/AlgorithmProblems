@@ -1,0 +1,30 @@
+from collections import deque
+
+
+
+
+t=int(input())
+for i in range(t):
+    password=str(input())
+
+    st1=deque()
+    st2=deque()
+
+    
+
+    for letter in password:
+        if letter == '<':
+            if len(st1)==0:
+                continue
+            st2.appendleft(st1.pop())
+        elif letter == '>':
+            if len(st2)==0:
+                continue
+            st1.append(st2.popleft())
+        elif letter == '-':
+            if len(st1)==0:
+                continue
+            st1.pop()
+        else:
+            st1.append(letter)
+    print(''.join(list(st1))+''.join(list(st2)))
