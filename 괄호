@@ -1,0 +1,20 @@
+from collections import deque
+
+n=int(input())
+
+for i in range(n):
+    s=str(input())
+    answer='YES'
+    stack=deque()
+    for string in s :
+        if string == '(':
+            stack.append(1)
+        else:
+            if len(stack)==0 :
+                answer='NO'
+                break
+            stack.pop()
+
+    if len(stack) != 0 :
+        answer='NO'
+    print(answer)
