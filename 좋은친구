@@ -1,0 +1,43 @@
+import sys
+from collections import deque
+
+input=sys.stdin.readline
+
+
+n,k=map(int,input().split())
+students=[]
+for i in range(n):
+    students.append((len(str(input()))-1,i))
+
+q=deque()
+answer=0
+students.sort()
+
+
+namelen=students[0][0]
+for name, grade in students:
+    if len(q)==0:
+        q.append(grade)
+        continue
+    if name != namelen:
+        while q:
+            q.popleft()
+            answer+=len(q)
+        q.append(grade)
+        namelen=name
+    else:
+        if grade-q[0] <= k :
+            q.append(grade)
+        else:
+            q.popleft()
+            answer+=len(q)
+            q.append(grade)
+        namelen=name
+
+
+while q :
+    q.popleft()
+    answer+=len(q)
+
+
+print(answer)
