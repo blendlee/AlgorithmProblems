@@ -1,0 +1,29 @@
+from collections import deque
+
+
+
+t=int(input())
+for l in range(t):
+    n,m=map(int,input().split())
+    papers=list(map(int,input().split()))
+    printer=deque()
+
+    for i in range(n):
+        printer.append((i,papers[i]))
+    count=0
+
+    while True:
+        result=True
+        x,p=printer.popleft()
+
+        for i in range(len(printer)):
+            if printer[i][1] > p :
+                printer.append((x,p))
+                result=False
+                break
+        if x==m and result:
+            count+=1
+            break
+        if result:
+            count+=1
+    print(count)
