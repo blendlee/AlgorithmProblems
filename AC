@@ -1,0 +1,69 @@
+from collections import deque
+import sys
+
+t=int(input())
+
+for i in range(t):
+    answer=1
+    reverse=True
+    p=str(input())
+    k=int(input())
+    numbers=str(input())
+
+
+
+    q=deque()
+
+    numbers=numbers[1:-1]
+    numbers=numbers.split(',')
+
+    for n in numbers:
+        if n.isnumeric():
+            q.append(int(n))
+
+
+    for s in p:
+        if s=='R':
+            if reverse:
+                reverse=False
+            else:
+                reverse=True
+        else:
+            if reverse:
+                if len(q)==0:
+                    answer='error'
+                    break
+                q.popleft()
+            else:
+                if len(q)==0:
+                    answer='error'
+                    break
+                q.pop()   
+        
+    if answer=='error':
+        print(answer)
+    else:
+        if len(q)==0:
+            print('[]')
+            continue
+        if len(q)==1:
+            print('['+str(q[0])+']')
+            continue
+        if reverse:
+            for i in range(len(q)):
+                if i==0:
+                    print('['+str(q[i])+',',end='')
+                
+                elif i==len(q)-1:
+                    print(str(q[i])+']')
+                else:
+                    print(str(q[i])+',',end='')
+        else:
+           for i in range(len(q)-1,-1,-1):
+                if i==len(q)-1:
+                    print('['+str(q[i])+',',end='')
+                
+                elif i==0:
+                    print(str(q[i])+']')
+                else:
+                    print(str(q[i])+',',end='')              
