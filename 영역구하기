@@ -1,0 +1,45 @@
+
+
+m,n,k=map(int,input().split())
+
+graph=[[0]*n for _ in range(m)]
+
+for i in range(k):
+    lx,ly,rx,ry=map(int,input().split())
+    ry-=1
+    rx-=1
+    lx,ly=abs(ly-(m-1)),lx
+    rx,ry=abs(ry-(m-1)),rx
+    for x in range(rx,lx+1):
+        for y in range(ly,ry+1):
+            if graph[x][y]==0:
+                graph[x][y]=1
+
+dx=[1,0,-1,0]
+dy=[0,1,0,-1]
+visited=[[False]*n for _ in range(m)]
+
+def dfs(x,y,visited):
+    global count
+    for i in range(4):
+        nx=x+dx[i]
+        ny=y+dy[i]
+        if 0 <= nx <m and 0<=ny<n :
+            if graph[nx][ny] ==0 and not visited[nx][ny]:
+                visited[nx][ny]=True
+                count+=1
+                dfs(nx,ny,visited)
+answer=[]
+for i in range(m):
+    for j in range(n):
+        if graph[i][j] ==0 and not visited[i][j]:
+            visited[i][j]=True
+            count=1
+            dfs(i,j,visited)
+            answer.append(count)
+
+answer.sort()
+
+print(len(answer))
+for i in answer:
+    print(i,end=' ')
