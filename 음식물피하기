@@ -1,0 +1,27 @@
+
+t=int(input())
+
+dx=[1,0,-1,0]
+dy=[0,1,0,-1]
+
+def dfs(x,y,visited):
+    for a in range(4):
+        nx=x+dx[a]
+        ny=y+dy[a]
+        if 0<=nx<n and 0<=ny<m :
+            if graph[nx][ny]==1 and not visited[nx][ny]:
+                visited[nx][ny]=True
+                dfs(nx,ny,visited)
+
+
+for _ in range(t):
+    n,m,k = map(int,input().split())
+    graph=[[0]*m for _ in range(n)]
+    for i in range(k):
+        x,y=map(int,input().split())
+        graph[x][y]=1
+
+    
+
+
+    visited=[[False]*m fo
