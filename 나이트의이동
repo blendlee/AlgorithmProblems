@@ -1,0 +1,32 @@
+
+from collections import deque
+k=int(input())
+
+for _ in range(k):
+    l=int(input())
+    x,y=map(int,input().split())
+    ex,ey=map(int,input().split())
+
+    visited=[[False]*l for _ in range(l)]
+
+    q=deque()
+    q.append((0,x,y))
+    visited[x][y]=True
+    dx=[2,2,-2,-2,1,1,-1,-1]
+    dy=[1,-1,1,-1,2,-2,2,-2]
+    t=0
+    answer=0
+    while q:
+        t,x,y= q.popleft()
+        if (x,y) == (ex,ey):
+            answer=t
+            break
+        for i in range(8):
+            nx=x+dx[i]
+            ny=y+dy[i]
+
+            if 0<=nx <l and 0 <=ny <l:
+                if not visited[nx][ny]:
+                    visited[nx][ny]=True
+                    q.append((t+1,nx,ny))
+    print(answer)
