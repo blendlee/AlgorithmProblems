@@ -1,0 +1,55 @@
+from collections import deque
+
+d=[(1,0,0),(-1,0,0),(0,1,0),(0,-1,0),(0,0,1),(0,0,-1)]
+
+answer=[]
+while True:
+    l,r,c=map(int,input().split())
+    if (l,r,c)==(0,0,0):
+        break
+
+    graph=[[] for _ in range(l)]
+    for i in range(l):
+        for j in range(r):
+            s=list(str(input()))
+            for k in range(len(s)):
+                if s[k]=="S":
+                    z,x,y=i,j,k
+                if s[k]=="E":
+                    ez,ex,ey=i,j,k
+            graph[i].append(s)
+
+        a=input()
+
+            
+
+    q=deque()
+
+    t=0
+    visited=[[[False]*c for _ in range(r)] for _ in range(l)]
+
+    q.append((t,z,x,y))
+    visited[z][x][y]=True
+    while q:
+        time,z,x,y =q.popleft()
+        if graph[z][x][y] =='E':
+            result =time
+            break
+        for i in range(6):
+            dx,dy,dz=d[i]
+            nx=x+dx
+            ny=y+dy
+            nz=z+dz
+            if 0<= nx <r and 0<=ny<c and 0<=nz<l:
+                if  visited[nz][nx][ny]== False:
+                    if graph[nz][nx][ny]=='.' or graph[nz][nx][ny]=='E':
+                        visited[nz][nx][ny]=True
+                        q.append((time+1,nz,nx,ny))
+
+                        
+
+    if visited[ez][ex][ey]:
+        print("Escaped in",result,"minute(s).")
+
+    else:
+        print("Trapped!")
