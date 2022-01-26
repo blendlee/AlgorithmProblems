@@ -1,0 +1,31 @@
+from collections import deque
+
+
+f,s,g,u,d=map(int,input().split())
+
+visited=[False]*(f+1)
+
+visited[s]=True
+q=deque()
+q.append((0,s))
+d=[u,-d]
+count=0
+
+while q:
+
+    count, now = q.popleft()
+
+    if now == g:
+        answer=count
+        break
+    for i in range(2):
+        next=now+d[i]
+        if 1<=next <=f:
+            if not visited[next]:
+                visited[next]=True
+                q.append((count+1,next))
+
+if visited[g]:
+    print(count)
+else:
+    print("use the stairs")
