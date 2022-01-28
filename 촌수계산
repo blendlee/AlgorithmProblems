@@ -1,0 +1,40 @@
+from collections import deque
+
+
+
+n=int(input())
+a,b= map(int,input().split())
+k=int(input())
+
+graph=[[] for _ in range(n+1)]
+for i in range(k):
+    x,y=map(int,input().split())
+    graph[x].append(y)
+    graph[y].append(x)
+
+
+start=1
+visited=[False]*(n+1)
+number=[[] for _ in range(n+1)]
+
+family=0
+
+start=a
+visited[start]=True
+q=deque()
+answer=0
+q.append((answer,start))
+while q:
+    answer, now=q.popleft()
+    if now == b:
+        result=answer
+        break
+    for i in graph[now]:
+        if not visited[i]:
+            visited[i]=True
+            q.append((answer+1,i))
+
+if not visited[b]:
+    print(-1)
+else:
+    print(result)
