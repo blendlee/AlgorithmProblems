@@ -1,0 +1,70 @@
+from collections import deque
+
+
+
+
+n,t,g=map(int,input().split())
+visited=["ANG"]*100000
+visited[n]=0
+q=deque()
+count=0
+q.append((count,n))
+
+def find(next):
+    if 1<= next <10:
+        return next-1
+    elif 10<=next<100:
+        f=next//10
+        r=next%10
+        return (f-1)*10+r
+    elif 100<=next<1000:
+        f=next//100
+        r=next%100
+        return (f-1)*100+r
+    elif 1000<=next<10000:
+        f=next//1000
+        r=next%1000
+        return (f-1)*1000+r
+    else:
+        f=next//10000
+        r=next%10000
+        return (f-1)*10000+r
+
+
+
+
+if n==g:
+    answer=0
+
+while q:
+    count,n = q.popleft()
+
+    if n==g :
+        answer=count
+        break
+
+    next=n+1
+    if next <= 99999 :
+        if visited[next] =="ANG" : 
+            if count <t :
+                visited[next]=count+1
+                q.append((count+1,next))
+        elif visited[next] > count+1:
+            if count <t :
+                visited[next]=count+1
+                q.append((count+1,next))
+
+    next=2*n
+    if 1<= next <= 99999:
+        if visited[find(next)] =="ANG" :
+            if count <t:
+                visited[find(next)]=count+1
+                q.append((count+1,find(next)))
+        elif visited[find(next)] > count+1:
+            if count <t:
+                visited[find(next)]=count+1
+                q.append((count+1,find(next)))
+    
+
+
+print(visited[g])
