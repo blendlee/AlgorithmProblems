@@ -1,0 +1,58 @@
+from collections import deque
+import copy
+
+graph=[]
+n=3
+for i in range(3):
+    graph.append(list(map(int,input().split())))
+
+for i in range(3):
+    for j in range(3):
+        if graph[i][j]==0:
+            x,y=i,j
+            graph[i][j]=9
+
+
+def change(graph):
+    c=''
+    for i in range(3):
+        for j in range(3):
+            c+=str(graph[i][j])
+    return c
+
+
+string=change(graph)
+visited={string:0}
+
+if string=='123456789':
+    print(0)
+else:
+    dx=[1,-1,0,0]
+    dy=[0,0,1,-1]
+
+    q=deque()
+    q.append((x,y,int(string)))
+
+    answer=-1
+    while q:
+        x,y,integer = q.popleft()
+        string=str(integer)
+        graph=list(string)
+        if visited.get('123456789'):
+            break
+        
+        for i in range(4):
+            nx=x+dx[i]
+            ny=y+dy[i]
+            if 0 <= nx <3 and 0<= ny < 3:
+                graph[3*nx+ny],graph[3*x+y] = graph[3*x+y],graph[3*nx+ny]
+                new_s=''.join(graph)
+                if not visited.get(new_s):
+                    visited[new_s] = visited[string] + 1
+                    q.append((nx,ny,int(new_s)))
+                graph[3*nx+ny],graph[3*x+y] = graph[3*x+y],graph[3*nx+ny]
+
+    if visited.get('123456789'):
+        print(visited['123456789'])
+    else:
+        print(-1)
