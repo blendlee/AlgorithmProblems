@@ -1,0 +1,45 @@
+from collections import deque
+
+n,m,start=map(int,input().split())
+
+graph=[[] for _ in range(n)]
+start-=1
+for i in range(m):
+    a,b=map(int,input().split())
+    graph[a-1].append(b-1)
+    graph[b-1].append(a-1)
+
+for i in range(n):
+    graph[i].sort()
+
+def dfs(start,visited):
+    for i in graph[start]:
+        if not visited[i]:
+            visited[i]=True
+            dfs_answer.append(i+1)
+            dfs(i,visited)
+
+dfs_answer=[start+1]
+visited=[False]*n
+visited[start]=True
+dfs(start,visited)
+
+visited=[False]*n
+q=deque()
+q.append(start)
+visited[start]=True
+bfs_answer=[start+1]
+
+while q:
+    now = q.popleft()
+    for i in graph[now]:
+        if not visited[i]:
+            visited[i]=True
+            bfs_answer.append(i+1)
+            q.append(i)
+
+for ans in dfs_answer:
+    print(ans,end=' ')
+print()
+for ans in bfs_answer:
+    print(ans,end=' ')
