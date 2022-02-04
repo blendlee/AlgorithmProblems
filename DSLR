@@ -1,0 +1,82 @@
+from collections import deque
+
+
+def left(n):
+    p=n
+    d1=p//1000
+    p=p%1000
+    d2=p//100
+    p=p%100
+    d3=p//10
+    p=p%10
+    d4=p
+    return d2*1000+d3*100+d4*10+d1
+
+def right(n):
+    p=n
+    d1=p//1000
+    p=p%1000
+    d2=p//100
+    p=p%100
+    d3=p//10
+    p=p%10
+    d4=p
+    return d4*1000+d1*100+d2*10+d3
+
+def find(b,answer):
+    if b == a:
+        return answer
+    n,s= visited[b]
+    answer+=s
+    return find(n,answer)
+
+
+
+t=int(input())
+for _ in range(t):
+    a,b=map(int,input().split())
+    visited=[0]*10000
+    visited[a]=(a,'')
+
+    q=deque()
+
+    q.append(a)
+
+    while q :
+        n = q.popleft()
+
+        if n == b:
+            break
+
+        d=(2*n)%10000
+        if visited[d] == 0:
+            visited[d]=(n,'D')
+            q.append(d)
+
+
+        s=n-1
+        if s<0:
+            s=9999
+        if visited[s]==0 :
+            visited[s]=(n,'S')
+            q.append(s)
+
+
+
+        l=left(n)
+
+        if visited[l] ==0 :
+            visited[l]=(n,'L')
+            q.append(l)
+
+
+
+        r=right(n)
+        if visited[r] ==0 :
+            visited[r]=(n,'R')
+            q.append(r)
+
+
+    answer=''
+    
+    print(''.join(list(reversed(find(b,answer)))))
