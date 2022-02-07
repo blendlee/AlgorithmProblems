@@ -1,0 +1,48 @@
+
+graph=[]
+blank=[]
+
+
+for i in range(9):
+    l=list(map(int,input().split()))
+    for j in range(9):
+        if l[j]==0:
+            blank.append((i,j))
+    graph.append(l)
+
+
+def backtrack(count):
+    if count==len(blank):
+        for i in range(9):
+
+            for j in range(9):
+                print(graph[i][j],end=' ')
+            print()
+        exit(0)
+
+    else:
+        for i in range(1,10):
+            x,y=blank[count]
+
+            column=True
+            for j in range(9):
+                if graph[j][y]==i:
+                    column=False
+            box=True
+            nx=(x//3)*3
+            ny=(y//3)*3
+            for a in range(nx,nx+3):
+                for b in range(ny,ny+3):
+                    if graph[a][b]==i:
+                        box=False
+
+            if i not in graph[x] and column and box:
+                graph[x][y]=i
+                backtrack(count+1)
+                graph[x][y]=0
+
+backtrack(0)
+for i in range(9):
+    for j in range(9):
+        print(graph[i][j],end=' ')
+    print()
