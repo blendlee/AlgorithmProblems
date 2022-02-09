@@ -1,0 +1,46 @@
+
+
+l,c = map(int,input().split())
+graph=list(map(str,input().split()))
+graph.sort()
+
+
+
+
+m=['a','e','i','o','u']
+
+
+front=0
+rear=l-1
+answer=''
+
+visited=[False]*c
+result=[]
+
+def backtrack(answer,count,idx):
+    global result
+    if count==l:
+        vowel=False
+        j=0
+        for s in answer:
+            if s in m :
+                vowel=True
+            else:
+                j+=1
+        if vowel==True and j>=2:
+            result.append(answer)
+
+    else:
+        for i in range(c):
+            if not visited[i] and idx<=i:
+                answer+=graph[i]
+                visited[i]=True
+                backtrack(answer,count+1,i)
+                visited[i]=False
+                answer=answer[:len(answer)-1]
+
+
+
+backtrack('',0,0)
+for s in result:
+    print(s)
