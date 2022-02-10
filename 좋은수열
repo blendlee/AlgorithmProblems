@@ -1,0 +1,33 @@
+
+n=int(input())
+
+numbers=[1,2,3]
+
+answer=''
+
+def repeat(answer):
+    candiate=[]
+    for s in range(len(answer)//2-1,len(answer)):
+        if answer[s]==answer[-1] and s != len(answer)-1:
+            candiate.append(s)
+    for i in candiate:
+        if answer[i+1:len(answer)]==answer[2*i-len(answer)+2:i+1]:
+            return True
+    return False
+
+
+def backtrack(count,answer):
+    if count ==n :
+        print(answer)
+        exit(0)
+    for i in numbers:
+        if not repeat(answer+str(i)):
+            answer+=str(i)
+            count+=1
+            backtrack(count,answer)
+            count-=1
+            answer=answer[:-1]
+        
+
+        
+backtrack(0,answer)
