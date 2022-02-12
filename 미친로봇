@@ -1,0 +1,44 @@
+
+
+
+l=list(map(int,input().split()))
+
+n=l[0]
+l=l[1:]
+
+answer=1
+k=2*n+1
+graph=[[0]*k for _ in range(k)]
+
+
+
+dx=[0,0,1,-1]
+dy=[1,-1,0,0]
+
+
+def backtrack(x,y,count,prob):
+    global answer
+
+    if count == n:
+        return
+    
+    for i in range(4):
+        nx=x+dx[i]
+        ny=y+dy[i]
+        if 0<= nx < k and 0<=ny<k:
+            if l[i] != 0 :
+                if graph[nx][ny]==0:
+                    graph[nx][ny]=1
+                    count+=1
+                    prob*=(l[i]/100)
+                    backtrack(nx,ny,count,prob)
+                    prob/=(l[i]/100)
+                    count-=1
+                    graph[nx][ny]=0
+                if graph[nx][ny]==1:
+                    answer-=(prob*(l[i]/100))
+
+
+graph[n][n]=1
+backtrack(n,n,0,1)
+print(float(answer))
