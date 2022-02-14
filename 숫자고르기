@@ -1,0 +1,39 @@
+
+
+n=int(input())
+graph=[]
+visited=[False]*n
+
+for i in range(n):
+    a=int(input())-1
+    graph.append(a)
+
+
+def find(start,i,cycle):
+    global result
+    global answer
+    if i == start and i in cycle:
+        for j in cycle:
+            visited[j]=True
+            result+=1
+            answer.append(j)
+        return 
+    if i in cycle or graph[i] >=len(graph):
+        return
+    if not visited[graph[i]]:
+        cycle.append(i)
+        find(start,graph[i],cycle)
+
+
+
+maximum=0
+result=0
+answer=[]
+for i in range(n):
+    if not visited[i]:
+        find(i,i,[])
+
+answer.sort()
+print(result)
+for i in answer:
+    print(i+1)
