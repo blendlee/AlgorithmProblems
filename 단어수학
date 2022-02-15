@@ -1,0 +1,43 @@
+
+n=int(input())
+
+number={}
+words=[]
+letters=[]
+visited=[False]*10
+
+for i in range(n):
+    s=str(input())
+    words.append(s)
+    for j in s :
+        number[j]='1'
+        letters.append(j)
+
+def backtrack(count):
+    global maximum
+    if count == len(letters):
+        maximum = max(maximum,cal(number))
+        return
+
+    for i in range(9,-1,-1):
+        if not visited[i]:
+            number[letters[count]]=str(i)
+            visited[i]=True
+            count+=1
+            backtrack(count)
+            count-=1
+            visited[i]=False
+
+
+def cal(number):
+    answer=0
+    for string in words:
+        s=''
+        for num in string:
+            s+=number[num]
+        answer+=int(s)
+    return answer
+    
+maximum=0
+backtrack(0)
+print(maximum)
