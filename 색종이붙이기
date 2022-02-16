@@ -1,0 +1,64 @@
+
+graph=[]
+
+for i in range(10):
+    graph.append(list(map(int,input().split())))
+
+
+papers=[0,0,0,0,0]
+
+def fit(s,e,k):
+    if s+k+1 > 10 or e+k+1 >10:
+        return False 
+    for p in range(s,s+k+1):
+        for q in range(e,e+k+1):
+            if graph[p][q]==0 or graph[p][q] ==2:
+                return False
+    return True
+
+def color(s,e,k):
+    for p in range(s,s+k+1):
+        for q in range(e,e+k+1):
+            graph[p][q]=2
+
+def uncolor(s,e,k):
+    for p in range(s,s+k+1):
+        for q in range(e,e+k+1):
+            graph[p][q]=1
+
+def check(graph):
+    for i in range(10):
+        for j in range(10):
+            if graph[i][j] == 1:
+                return False
+    return True
+
+result=25
+
+def backtrack(x,y,answer):
+    global result
+    if y>=10:
+        result=min(answer,result)
+        return
+    
+    if x>=10:
+        backtrack(0,y+1,answer)
+        return
+
+    if graph[x][y]==1:
+        for k in range(5):
+            if papers[k] <5 and fit(x,y,k):
+                color(x,y,k)
+                papers[k]+=1
+                answer+=1
+                backtrack(x+k+1,y,answer)
+                answer-=1
+                papers[k]-=1
+                uncolor(x,y,k)
+    else:
+        backtrack(x+1,y,answer)
+        return
+
+
+backtrack(0,0,0)
+print(result) if result!=25 else print(-1)
