@@ -1,0 +1,47 @@
+import heapq
+import sys
+
+input=sys.stdin.readline
+
+v,e = map(int,input().split())
+k = int(input())
+
+graph=[[] for _ in range(v+1)]
+
+INF=1e9
+
+distance=[INF]*(v+1)
+
+
+
+for i in range(e):
+    u,v,w = map(int,input().split())
+    graph[u].append((v,w))
+
+
+
+
+
+def dijkstra(start):
+    q=[]
+    distance[start]=0
+    heapq.heappush(q,(start,distance[start]))
+
+    while q :
+        now, dist = heapq.heappop(q)
+        if dist > distance[now]:
+            continue
+
+        for target in graph[now]:
+            cost = dist+target[1]
+            if cost < distance[target[0]]:
+                distance[target[0]] = cost
+                heapq.heappush(q,(target[0],cost))
+
+
+
+
+                
+dijkstra(k)
+for i in range(1,len(distance)):
+    print(distance[i]) if distance[i] != INF else print('INF')
