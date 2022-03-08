@@ -1,0 +1,28 @@
+def solution(s):
+    
+    answer=1001
+    if len(s) == 1:
+        answer=1
+    for split_len in range(1,len(s)//2+1):
+        splited_s=[0]
+        split_cnt=[0]*1005
+        idx=0
+        minimum=0
+        for i in range(0,len(s),split_len):
+            if splited_s[-1] == s[i:i+split_len] :
+                split_cnt[idx]+=1
+            else:
+                splited_s.append(s[i:i+split_len])
+                idx+=1
+                split_cnt[idx]+=1
+
+        for i in range(1,len(splited_s)):
+            if split_cnt[i] ==1 :
+                minimum+=len(splited_s[i])
+            else:
+                minimum+=len(splited_s[i])
+                minimum+=len(str(split_cnt[i]))
+        answer=min(answer,minimum)
+        
+    
+    return answer
