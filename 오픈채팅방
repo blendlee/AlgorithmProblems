@@ -1,0 +1,20 @@
+def solution(records):
+    chats={}
+    answer=[]
+    for record in records:
+        if 'Leave' in record:
+            continue
+        status, id, name = record.split(' ')
+        if status == 'Enter':
+            chats[id]= name
+        if status == 'Change':
+            chats[id]= name
+    for record in records:
+        if 'Leave' in record:
+            status, id = record.split(' ')
+            answer.append(f'{chats[id]}님이 나갔습니다.')
+        else:
+            status, id, name = record.split(' ')
+            if status == 'Enter':
+                answer.append(f'{chats[id]}님이 들어왔습니다.')
+    return answer
