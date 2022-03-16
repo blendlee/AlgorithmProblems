@@ -1,0 +1,30 @@
+
+import re
+
+def tokenize(str):
+    p=re.compile('[a-zA-Z][a-zA-Z]')
+    tokens=[]
+    for i in range(len(str)-1):
+        if p.match(str[i:i+2]):
+            tokens.append(str[i:i+2].lower())
+    return tokens
+
+def solution(str1,str2):
+    token1=tokenize(str1)
+    token2=tokenize(str2)
+    length=len(token1)+len(token2)
+   
+    if len(token1)==0 and len(token2) == 0 :
+        return 65536
+    elif len(token1)==0 or len(token2)==0:
+        return 0
+    
+    intersection=0
+    for token in token1:
+        if token in token2:
+            intersection +=1
+            token2.remove(token)
+
+    answer= intersection/(length-intersection) *65536
+    return int(answer)
+
