@@ -1,0 +1,59 @@
+import heapq
+import math
+import sys
+
+
+input=sys.stdin.readline
+INF=1e9
+sx,sy = map(float,input().split())
+ex,ey = map(float,input().split())
+
+
+n=int(input())
+graph=[[] for _ in range(n+2)]
+coords=[]
+cnt=0
+coords.append((sx,sy))
+
+for i in range(1,n+2):
+    if i == n+1:
+        x,y=ex,ey
+    else:
+        x,y = map(float,input().split())
+    coords.append((x,y))
+    for now in range(len(coords)) :
+        dist=math.sqrt((coords[now][0]-x)**2+(coords[now][1]-y)**2)
+        if i== now :
+            continue
+        if now==0 :
+            w=dist/5
+            graph[now].append((i,w))
+        else:
+            if dist < 50 :
+                w = min(dist/5,(50-dist)/5+2)
+            else:
+                w=(dist-50)/5+2
+            
+            graph[now].append((i,w))
+            if i==n+1 :
+                continue
+            graph[i].append((now,w))
+
+
+def dijkstra(start):
+    distance =[INF]*(n+2)
+    q=[]
+    distance[start]=0
+    heapq.heappush(q,(0,start))
+    while q:
+        dist,now = heapq.heappop(q)
+        if dist > distance[now]:
+            continue
+        for i in graph[now]:
+            cost = dist+i[1]
+            if cost < distance[i[0]]:
+                distance[i[0]]=cost
+                heapq.heappush(q,(cost,i[0]))
+    return distance[n+1]
+
+print(dijkstra(0))
