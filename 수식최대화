@@ -1,0 +1,51 @@
+from itertools import permutations
+
+
+op=['*','-','+']
+
+expression = "50*6-3*2"
+
+INF=2**63-1
+op_priority =list(permutations(op,3))
+answer=[]
+for x,y,z in op_priority:
+    priority = {x:2,y:1,z:0}
+    postfix=[]
+    stack=[]
+    prev=0
+    for idx,s in enumerate(expression) :
+        if not s.isalnum():
+            oper = expression[idx]
+            postfix.append(int(expression[prev:idx]))
+            if len(stack)==0 or  priority[oper] > priority[stack[-1]]:
+                stack.append(oper)
+            else:
+                while priority[oper] <= priority[stack[-1]]:
+                    prev_op =stack.pop()
+                    postfix.append(prev_op)
+                    if len(stack)==0:
+                        break
+                stack.append(oper)
+
+            prev=idx+1
+    postfix.append(int(expression[prev:]))
+    while stack:
+        op=stack.pop()
+        postfix.append(op)
+    for n in postfix:
+        if type(n)==int:
+            stack.append(n)
+        else:
+            n2=stack.pop()
+            n1=stack.pop()
+            if n =='*':
+                new_n=n1*n2
+            elif n =='+':
+                new_n=n1+n2
+            else:
+                new_n=n1-n2
+            stack.append(new_n)
+    result=abs(stack.pop())
+    if result <= INF:
+        answer.append(result)
+print(max(answer))
