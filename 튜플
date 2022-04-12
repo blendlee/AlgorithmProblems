@@ -1,0 +1,12 @@
+from collections import Counter
+
+def solution(s):
+    dict_list = s[2:-2].split('},{')
+    result=[]
+    for value in dict_list:
+        result +=value.split(',')
+    result=Counter(result).most_common()
+    answer=[]
+    for x,y in result:
+        answer.append(int(x))
+    return answer
