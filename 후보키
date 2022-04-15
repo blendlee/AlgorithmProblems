@@ -1,0 +1,26 @@
+from itertools import combinations
+
+def solution(relation):
+    columns=list(range(len(relation[0])))
+    length=len(columns)
+    answers=[]
+    for i in range(1,length+1):
+        combs = list(combinations(columns,i))
+        for comb in combs:
+            keep_going=True
+            for answer in answers:
+                if len(answer+comb) == (len(set(answer+comb))+len(answer)):
+                    keep_going=False
+                    break 
+            if not keep_going:
+                continue
+
+            result=[]
+            for j in range(len(relation)):
+                t=()
+                for idx in comb:
+                    t=t +(relation[j][idx],)
+                result.append(t)
+            if len(result) == len(set(result)):
+                answers.append(comb)
+    return len(answers)
