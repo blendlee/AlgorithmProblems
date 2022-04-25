@@ -1,0 +1,56 @@
+from collections import deque
+
+def check(graph,x,y):
+    if (graph[x][y] == graph[x+1][y]) and (graph[x+1][y] == graph[x][y+1]) and (graph[x][y+1] == graph[x+1][y+1]):
+        if graph[x][y] != -1:
+            return True
+    return False
+
+def gravity(graph,m,n):
+    for i in range(m-1,0,-1):
+        for j in range(n-1,-1,-1):
+            if graph[i][j]==-1:
+                for k in range(1,40):
+                    if i-k<=0 or graph[i-k][j] != -1:
+                        break
+                graph[i][j] = graph[i-k][j]
+                graph[i-k][j] = -1
+    return graph
+            
+
+dx=[1,0,-1,0]
+dy=[0,1,0,-1]
+ax=[0,0,1,1]
+ay=[0,1,0,1]
+def solution(m, n, board):
+    graph=[[] for _ in range(m)]
+    
+    for i in range(m):
+        for j in range(n):
+            graph[i].append(board[i][j])
+            
+    answer = 0
+    #종료조건, visited,graph 업데이트
+    
+    while True:
+        switch=False
+        result=[]
+        visited=[[False]*n for _ in range(m)]
+        for i in range(m-1):
+            for j in range(n-1):
+                if check(graph,i,j):
+                    switch=True
+                    for k in range(4):
+                        nx=i+ax[k]
+                        ny=j+ay[k]
+                        if (nx,ny) not in result:
+                            result.append((nx,ny))
+                            answer+=1
+        for x,y in result:
+            graph[x][y]=-1
+        
+        graph=gravity(graph,m,n)
+
+        if not switch:
+            break
+    return answer
